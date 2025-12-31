@@ -1,13 +1,19 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Lock, Shield, MessageSquare, CheckCircle2, ArrowRight, Menu, X, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null)
   const [hoveredStep, setHoveredStep] = useState<number | null>(null)
+
+  const handleStartMessaging = () => {
+    router.push('/login')
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
@@ -125,7 +131,10 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-7 text-base font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/80 transition-all duration-300 transform hover:scale-105 group">
+              <Button
+                onClick={handleStartMessaging}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-7 text-base font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/80 transition-all duration-300 transform hover:scale-105 group"
+              >
                 Start Messaging <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
@@ -386,7 +395,10 @@ export default function Home() {
             Join the future of secure messaging. Start protecting your conversations today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-10 py-7 text-base font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/80 transition-all duration-300 transform hover:scale-105 group">
+            <Button
+              onClick={handleStartMessaging}
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-10 py-7 text-base font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/80 transition-all duration-300 transform hover:scale-105 group"
+            >
               Get Started Now <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button

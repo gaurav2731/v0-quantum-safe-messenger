@@ -7,9 +7,21 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Quantum-Safe Messenger',
+  description: 'Secure messaging with quantum-safe encryption, AI security, and blockchain verification',
   generator: 'v0.app',
+  manifest: '/manifest.json',
+  themeColor: '#00ffff',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'QS Messenger',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 }
 
 export default function RootLayout({

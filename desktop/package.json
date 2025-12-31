@@ -1,0 +1,42 @@
+{
+  "name": "quantumsafe-desktop",
+  "version": "1.0.0",
+  "description": "QuantumSafe Messenger Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "author": "QuantumSafe Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "ws": "^8.13.0"
+  },
+  "build": {
+    "appId": "com.quantumsafe.messenger",
+    "productName": "QuantumSafe Messenger",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
