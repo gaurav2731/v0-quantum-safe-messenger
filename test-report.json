@@ -1,0 +1,178 @@
+{
+  "passed": 15,
+  "failed": 13,
+  "total": 28,
+  "tests": [
+    {
+      "name": "File System Integrity",
+      "status": "PASSED",
+      "duration": 1,
+      "error": null
+    },
+    {
+      "name": "Package Dependencies",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Expected ',' or '}' after property value in JSON at position 927 (line 42 column 1)"
+    },
+    {
+      "name": "TypeScript Compilation",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "TypeScript compilation failed: "
+    },
+    {
+      "name": "Build Process",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Build failed: Failed to compile.\n\n./node_modules/argon2-browser/dist/argon2.wasm\nModule parse failed: Unexpected character '\u0000' (1:0)\nThe module seem to be a WebAssembly module, but module is not flagged as WebAssembly module for webpack.\nBREAKING CHANGE: Since webpack 5 WebAssembly is not enabled by default and flagged as experimental feature.\nYou need to enable one of the WebAssembly experiments via 'experiments.asyncWebAssembly: true' (based on async modules) or 'experiments.syncWebAssembly: true' (like webpack 4, deprecated).\nFor files that transpile to WebAssembly, make sure to set the module type in the 'module.rules' section of the config (e. g. 'type: \"webassembly/async\"').\n(Source code omitted for this binary file)\n\nImport trace for requested module:\n./node_modules/argon2-browser/dist/argon2.wasm\n./node_modules/argon2-browser/lib/argon2.js\n./app/api/auth/login/route.ts\n\n./app/advanced/page.tsx\nError:   \u001b[31mx\u001b[0m Identifier cannot follow number\n     ,-[\u001b[36;1;4mC:\\Users\\rsrsr\\Desktop\\encrypted future\\v0-quantum-safe-messenger\\app\\advanced\\page.tsx\u001b[0m:382:1]\n \u001b[2m379\u001b[0m |             </CardHeader>\n \u001b[2m380\u001b[0m |             <CardContent>\n \u001b[2m381\u001b[0m |               <div className=\"space-y-2 text-sm text-slate-300\">\n \u001b[2m382\u001b[0m |                 <p>• TLS Handshake: <50ms</p>\n     : \u001b[35;1m                                       ^\u001b[0m\n \u001b[2m383\u001b[0m |                 <p>• ZKP Generation: <100ms</p>\n \u001b[2m384\u001b[0m |                 <p>• AI Analysis: <200ms</p>\n \u001b[2m384\u001b[0m |                 <p>• Memory Usage: Optimized</p>\r\n     `----\n  \u001b[31mx\u001b[0m Expected '</', got 'ms'\n     ,-[\u001b[36;1;4mC:\\Users\\rsrsr\\Desktop\\encrypted future\\v0-quantum-safe-messenger\\app\\advanced\\page.tsx\u001b[0m:382:1]\n \u001b[2m379\u001b[0m |             </CardHeader>\n \u001b[2m380\u001b[0m |             <CardContent>\n \u001b[2m381\u001b[0m |               <div className=\"space-y-2 text-sm text-slate-300\">\n \u001b[2m382\u001b[0m |                 <p>• TLS Handshake: <50ms</p>\n     : \u001b[35;1m                                       ^^\u001b[0m\n \u001b[2m383\u001b[0m |                 <p>• ZKP Generation: <100ms</p>\n \u001b[2m384\u001b[0m |                 <p>• AI Analysis: <200ms</p>\n \u001b[2m384\u001b[0m |                 <p>• Memory Usage: Optimized</p>\r\n     `----\n\nCaused by:\n    Syntax Error\n\nImport trace for requested module:\n./app/advanced/page.tsx\n\n\n> Build failed because of webpack errors\n"
+    },
+    {
+      "name": "Crypto Library",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Kyber key exchange not mentioned in crypto"
+    },
+    {
+      "name": "Push Notifications",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "Dashboard Component",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "UI Components",
+      "status": "PASSED",
+      "duration": 1,
+      "error": null
+    },
+    {
+      "name": "Desktop App",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Desktop main.js missing electron imports"
+    },
+    {
+      "name": "Mobile PWA",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "API Routes",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "Authentication System",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Missing auth function: hashPassword"
+    },
+    {
+      "name": "Blockchain Integration",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "ML Security System",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "TensorFlow not used in ML system"
+    },
+    {
+      "name": "Honeypot System",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Missing honeypot feature: createPuzzle"
+    },
+    {
+      "name": "Configuration Files",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Missing config file: tailwind.config.js"
+    },
+    {
+      "name": "Environment Variables",
+      "status": "PASSED",
+      "duration": 1,
+      "error": null
+    },
+    {
+      "name": "Security Middleware",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "Performance Optimization",
+      "status": "PASSED",
+      "duration": 1,
+      "error": null
+    },
+    {
+      "name": "Accessibility Compliance",
+      "status": "PASSED",
+      "duration": 2,
+      "error": null
+    },
+    {
+      "name": "Crypto + Auth Integration",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Password hashing not integrated between crypto and auth"
+    },
+    {
+      "name": "Push + Dashboard Integration",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "ML + Blockchain Integration",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "Honeypot + Auth Integration",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "Desktop + Web App Compatibility",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Desktop and web app not compatible"
+    },
+    {
+      "name": "PWA + Push Integration",
+      "status": "PASSED",
+      "duration": 0,
+      "error": null
+    },
+    {
+      "name": "API + UI Integration",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "API routes not properly integrated with UI components"
+    },
+    {
+      "name": "All Crypto Systems Integration",
+      "status": "FAILED",
+      "duration": 0,
+      "error": "Not all crypto systems properly integrated"
+    }
+  ],
+  "duration": 9644,
+  "successRate": "53.57",
+  "timestamp": "2025-12-31T07:31:21.546Z"
+}

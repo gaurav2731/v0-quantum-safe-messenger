@@ -1,0 +1,25 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        buildToolsVersion = "34.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // FIX: Upgrading Android Gradle Plugin to a version that supports compileSdk 36
+        classpath("com.android.tools.build:gradle:8.4.0")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
