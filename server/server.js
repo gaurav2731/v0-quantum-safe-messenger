@@ -582,7 +582,11 @@ class QuantumSafeServer {
 
 // Create and start server
 const server = new QuantumSafeServer();
-const PORT = process.env.PORT || 3001;
-server.start(PORT);
 
-module.exports = QuantumSafeServer;
+// For local running
+if (require.main === module) {
+  server.start(process.env.PORT || 3001);
+}
+
+// Export the server instance and handler for Vercel
+module.exports = server.handleRequest.bind(server);

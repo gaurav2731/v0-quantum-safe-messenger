@@ -183,7 +183,7 @@ export default function ChatPage() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/contacts`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/contacts`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
           }
@@ -210,7 +210,7 @@ export default function ChatPage() {
     try {
       // In a real app, this would call an API like `/api/users/search?q=${searchQuery}`
       // For now, we simulate a search result or search existing contacts
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/users/search?q=${searchQuery}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/users/search?q=${searchQuery}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -231,7 +231,7 @@ export default function ChatPage() {
 
   const addContact = async (contact: Contact) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/contacts/add`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/contacts/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

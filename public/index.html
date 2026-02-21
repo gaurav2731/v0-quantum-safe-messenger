@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Quantum Messenger: Golden Master v15.0</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <style>
+        :root { --p: #d4af37; --s: #8b4513; --bg: #0d0a09; --glass: rgba(26, 22, 20, 0.95); --border: rgba(212, 175, 55, 0.25); --danger: #ff4757; }
+        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #f1f1f1; height: 100vh; overflow: hidden; }
+        .screen { display: none; height: 100vh; width: 100%; flex-direction: column; opacity: 0; transition: 0.5s ease; }
+        .active { display: flex; opacity: 1; }
+        .nav-bar { width: 100%; height: 100px; padding: 40px 25px 10px; background: var(--glass); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; z-index: 1000; }
+        .nav-icons { display: flex; gap: 20px; align-items: center; }
+        .icon-btn { font-size: 1.4rem; cursor: pointer; color: var(--p); }
+        .input-box { width: 100%; background: #1a1614; border: 1px solid var(--border); padding: 16px 24px; border-radius: 30px; color: white; margin-bottom: 15px; text-align: center; }
+        button { width: 100%; padding: 18px; border: none; border-radius: 25px; background: linear-gradient(135deg, var(--p), var(--s)); color: #000; font-weight: 900; cursor: pointer; margin-top: 10px; }
+        .glass-panel { width: 90%; max-width: 420px; padding: 50px 35px; background: var(--glass); border: 1px solid var(--border); border-radius: 60px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .spaces-tray { height: 95px; padding: 10px 20px; display: flex; gap: 15px; overflow-x: auto; background: rgba(0,0,0,0.5); border-bottom: 1px solid var(--border); align-items: center; flex-shrink: 0; }
+        .space-circle { width: 58px; height: 58px; border-radius: 50%; border: 2px solid var(--border); background: var(--glass); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; color: var(--p); font-weight: 900; }
+        .space-circle.selected { border-color: var(--p); box-shadow: 0 0 15px var(--p); }
+        .chat-area { flex: 1; overflow-y: auto; padding: 25px; }
+        .bubble { padding: 16px 24px; border-radius: 28px; max-width: 80%; }
+        .sent { align-self: flex-end; background: linear-gradient(135deg, var(--p), var(--s)); color: #000; }
+        .recv { align-self: flex-start; background: var(--glass); border: 1px solid var(--border); }
+        .footer { padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: #0d0a09; display: flex; gap: 12px; align-items: center; border-top: 1px solid var(--border); }
+        .btn-send { width: 55px; height: 55px; border-radius: 50%; background: var(--p); border: none; display: flex; align-items: center; justify-content: center; color: black; font-size: 1.4rem; }
+        .hub-card { background: var(--glass); padding: 25px; border-radius: 35px; border: 1px solid var(--border); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .toggle { width: 60px; height: 32px; background: #333; border-radius: 30px; position: relative; }
+        .toggle.on { background: var(--p); }
+        .toggle::after { content: ''; position: absolute; width: 26px; height: 26px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.4s; }
+        .toggle.on::after { left: 31px; }
+    </style>
+</head>
+<body>
+    <div id="scr-auth" class="screen"><div class="glass-panel" style="display:flex;justify-content:center;align-items:center;"><h1 style="color:var(--p);">QUANTUM</h1><input id="node-id" class="input-box" placeholder="Node ID"><input type="password" id="node-pass" class="input-box" placeholder="Set PIN"><button onclick="login()">INITIALIZE</button></div></div>
+    <div id="scr-gate" class="screen" style="justify-content:center;align-items:center;"><div class="glass-panel"><h2>QUANTUM SHIELD</h2><div id="pin-fallback" style="display:none;"><input type="password" id="gate-pass" class="input-box" placeholder="Master PIN"><button onclick="verifyPIN()">UNLOCK</button></div><button id="bio-btn" onclick="triggerBiometric()">USE BIOMETRICS</button></div></div>
+    <div id="scr-chat" class="screen"><header class="nav-bar"><div><b id="active-space-name">...</b><br><small id="active-node-id"></small></div><div class="nav-icons"><span onclick="startCall(false)">📞</span><span onclick="startCall(true)">📹</span><span onclick="renameContact()">✏️</span><span onclick="switchUI('scr-hub')">⚙️</span></div></header><div class="spaces-tray" id="spaces-tray"></div><div class="chat-area" id="chat-container"></div><div class="footer"><input id="msgInput" class="input-box"><button class="btn-send" onclick="sendMessage()">➤</button></div></div>
+    <div id="scr-hub" class="screen"><header class="nav-bar"><span onclick="switchUI('scr-chat')">✕</span><b>SECURITY HUB</b></header><div style="padding:30px;"><div class="hub-card" onclick="toggleSetting('bio')"><div><b>FaceID Guard</b></div><div id="toggle-bio" class="toggle on"></div></div><div class="hub-card" onclick="changePIN()"><div><b>Change Master PIN</b></div><span>🔑</span></div><button onclick="logout()">LOGOUT</button></div></div>
+
+    <script src="capacitor.js"></script>
+    <script>
+        document.addEventListener('deviceready', () => {
+            const config = { apiKey: "AIzaSyD-NKAEwYx_CmXuWQpbCFfPKAP5-xPAku4", authDomain: "quantum-messanger-3e37c.firebaseapp.com", databaseURL: "https://quantum-messanger-3e37c-default-rtdb.firebaseio.com" };
+            firebase.initializeApp(config);
+            const db = firebase.database();
+            const Q = window.Capacitor.Plugins.QuantumCrypto;
+            
+            let myUID = localStorage.getItem('logged_node');
+            let myKeys, activeSpace;
+            let contacts = JSON.parse(localStorage.getItem('q_contacts') || '{}');
+            let chatHistory = JSON.parse(localStorage.getItem('q_chats') || '{}');
+
+            if (myUID) { switchUI('scr-gate'); triggerBiometric(); } else { switchUI('scr-auth'); }
+
+            window.login = async () => {
+                 if(!Q) return alert("Native Plugin Error!");
+                myUID = document.getElementById('node-id').value;
+                const pass = document.getElementById('node-pass').value;
+                try {
+                    myKeys = await Q.generateKyberKeys();
+                    const res = await Q.generateHash({ data: pass + "SALT_V5" });
+                    await db.ref('users/' + myUID).set({ pass: res.hash, publicKey: myKeys.publicKey });
+                    localStorage.setItem('logged_node', myUID);
+                    localStorage.setItem('q_pass_hash', res.hash);
+                    finalizeLogin();
+                } catch (e) { alert("Error: " + e.message); }
+            };
+
+            async function finalizeLogin() {
+                if (!myKeys && Q) myKeys = await Q.generateKyberKeys();
+                switchUI('scr-chat');
+            }
+
+            function switchUI(id) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                const targetScreen = document.getElementById(id);
+                if(targetScreen) {
+                    targetScreen.style.display = 'flex';
+                    setTimeout(() => targetScreen.classList.add('active'), 10);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
